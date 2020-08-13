@@ -1,5 +1,7 @@
 import 'package:automobile_data/models/AppTheme.dart';
 import 'package:automobile_data/viewmodels/BrandVM.dart';
+import 'package:automobile_data/viewmodels/CarDataVM.dart';
+import 'package:automobile_data/viewmodels/FilterOptionsVM.dart';
 import 'package:automobile_data/viewmodels/ModelVM.dart';
 import 'package:automobile_data/viewmodels/ThemeChanger.dart';
 import 'package:automobile_data/viewmodels/YearVM.dart';
@@ -16,6 +18,8 @@ void main() {
       ChangeNotifierProvider(builder: (_) => YearVM()),
       ChangeNotifierProvider(builder: (_) => BrandVM()),
       ChangeNotifierProvider(builder: (_) => ModelVM()),
+      ChangeNotifierProvider(builder: (_) => FilterOptionsVM()),
+      ChangeNotifierProvider(builder: (_) => CarDataVM()),
     ],
     child: MyApp(),
   ));

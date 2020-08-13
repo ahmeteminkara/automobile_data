@@ -13,11 +13,13 @@ class ModelVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadBrandsFromService(String brandId) async {
+  loadModelsFromService(int year,String brandId) async {
     LogPrint.modelsLoading;
+    selectedModel = null;
     modelList.clear();
     notifyListeners();
-    final List<Model> result = await WebService.getModels(brandId);
+    final List<Model> result = await WebService.getModels(year,brandId);
+    setSelectedModel(result.first);
     modelList = result;
     notifyListeners();
 

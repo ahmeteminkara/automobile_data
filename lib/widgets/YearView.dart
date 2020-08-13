@@ -11,7 +11,7 @@ class YearView extends StatelessWidget {
 
     if (yearVM.yearList.isEmpty) {
       return ListTile(
-        title: Text("Years"),
+        title: Text("Year"),
         trailing: CircularProgressIndicator(),
       );
     }
@@ -21,7 +21,7 @@ class YearView extends StatelessWidget {
 
   generatorView(BuildContext context, YearVM yearVM) {
     return ListTile(
-      title: Text("Years"),
+      title: Text("Year"),
       trailing: pleaseText(yearVM, yearVM.selectYear),
       onTap: () {
         MyBottomSheet.show(context, generatorItem(context, yearVM));
