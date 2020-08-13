@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:automobile_data/models/Brands.dart';
 import 'package:automobile_data/models/CarData.dart';
 import 'package:automobile_data/models/Model.dart';
 import 'package:automobile_data/utils/enums.dart';
 import 'package:automobile_data/viewmodels/CarDataVM.dart';
 import 'package:automobile_data/widgets/MyBottomSheet.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -73,7 +76,7 @@ class CarDataList extends StatelessWidget {
           ));
     }
 
-    return ListView.builder(
+    ListView listView = ListView.builder(
       itemCount: carDataVM.listCarData.length,
       itemBuilder: (ctx, index) {
         CarData carData = carDataVM.listCarData.elementAt(index);
@@ -126,6 +129,35 @@ class CarDataList extends StatelessWidget {
           ),
         );
       },
+    );
+
+    CarData simpleCarData = carDataVM.listCarData.first;
+
+    List<String> imageFilter = [
+      simpleCarData.makeDisplay,
+      simpleCarData.modelName,
+      simpleCarData.modelYear,
+      simpleCarData.modelBody,
+    ];
+
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 200,
+          alignment: Alignment.center,
+          child: CachedNetworkImage(
+            height: 200,
+            fit: BoxFit.contain,
+            imageUrl: 'http://www.regcheck.org.uk/image.aspx/@' +
+                base64.encode(
+                  utf8.encode(imageFilter.join(" ")),
+                ),
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        ),
+        Expanded(child: listView),
+      ],
     );
   }
 

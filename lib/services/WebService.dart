@@ -9,8 +9,11 @@ import 'package:automobile_data/models/Year.dart';
 
 class WebService {
   static Future<Year> getMinMaxYear() async {
-    final response =
-        await http.get("https://www.carqueryapi.com/api/0.3/?cmd=getYears");
+    final url = "https://www.carqueryapi.com/api/0.3/?cmd=getYears";
+
+    print(url);
+
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
@@ -26,8 +29,11 @@ class WebService {
   }
 
   static Future<List<Brand>> getBrands(int year) async {
-    final response = await http
-        .get("https://www.carqueryapi.com/api/0.3/?cmd=getMakes&year=$year");
+    final url = "https://www.carqueryapi.com/api/0.3/?cmd=getMakes&year=$year";
+
+    print(url);
+
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
@@ -50,8 +56,12 @@ class WebService {
   }
 
   static Future<List<Model>> getModels(int year, String brandId) async {
-    final response = await http.get(
-        "https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=$brandId&year=$year");
+    final url =
+        "https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=$brandId&year=$year";
+
+    print(url);
+
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);

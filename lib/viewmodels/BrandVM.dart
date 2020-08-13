@@ -4,6 +4,12 @@ import 'package:automobile_data/utils/log_print.dart';
 import 'package:flutter/material.dart';
 
 class BrandVM extends ChangeNotifier {
+  BrandVM() {
+    selectedBrand = nullBrand;
+  }
+
+  Brand get nullBrand => Brand(id: "---", displayName: "---", country: "---");
+
   List<Brand> brandsList = [];
 
   Brand selectedBrand;
@@ -18,7 +24,6 @@ class BrandVM extends ChangeNotifier {
     brandsList.clear();
     notifyListeners();
     final List<Brand> result = await WebService.getBrands(year);
-    selectedBrand = result.first;
     brandsList = result;
     notifyListeners();
 

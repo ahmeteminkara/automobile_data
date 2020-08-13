@@ -1,3 +1,4 @@
+import 'package:automobile_data/models/Brands.dart';
 import 'package:automobile_data/viewmodels/BrandVM.dart';
 import 'package:automobile_data/viewmodels/ModelVM.dart';
 import 'package:automobile_data/viewmodels/YearVM.dart';
@@ -25,14 +26,11 @@ class BrandsView extends StatelessWidget {
       );
     }
 
-    if (brandVM.selectedBrand != null && modelVM.selectedModel == null) {
-      modelVM.loadModelsFromService(
-          yearVM.selectYear, brandVM.selectedBrand.id);
-    }
-
     return ListTile(
       title: Text("Brands"),
-      trailing: Text(brandVM.selectedBrand.displayName),
+      trailing: Text(brandVM.selectedBrand.id == brandVM.nullBrand.id
+          ? "Plase selected brand"
+          : brandVM.selectedBrand.displayName),
       onTap: () {
         MyBottomSheet.show(
             context, generatorItem(context, yearVM, brandVM, modelVM));
@@ -42,14 +40,22 @@ class BrandsView extends StatelessWidget {
 
   List<Widget> generatorItem(
       BuildContext context, YearVM yearVM, BrandVM brandVM, ModelVM modelVM) {
-    return brandVM.brandsList.map((brand) {
-      return ListTile(
-        title: Text(brand.displayName),
-        onTap: () {
-          brandVM.setSelectedBrand(brand);
+    List<Brand> tempList = [];
 
-          modelVM.loadModelsFromService(
-              yearVM.selectYear, brandVM.selectedBrand.id);
+    tempList.addAll(brandVM.brandsList);
+    tempList.insert(0, brandVM.nullBrand);
+
+    return tempList.map((brand) {
+      return ListTile(
+        title: Text(brand.id == brandVM.nullBrand.id
+            ? "Plase selected brand"
+            : brand.displayName),
+        onTap: () {
+          if (brand.id != brandVM.nullBrand.id) {
+          brandVM.setSelectedBrand(brand);
+            modelVM.loadModelsFromService(
+                yearVM.selectYear, brandVM.selectedBrand.id);
+          }
           Navigator.pop(context);
         },
       );

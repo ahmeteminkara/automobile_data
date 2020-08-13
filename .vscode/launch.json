@@ -1,6 +1,5 @@
 {
   "configurations": [
-    
     {
       "name": "Flutter app",
       "program": "lib/main.dart",

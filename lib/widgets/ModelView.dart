@@ -10,7 +10,15 @@ class ModelView extends StatelessWidget {
     BrandVM brandVM = Provider.of<BrandVM>(context);
     ModelVM modelVM = Provider.of<ModelVM>(context);
 
-    if (brandVM.brandsList.isEmpty) {
+    if (brandVM.brandsList.isEmpty &&
+        brandVM.selectedBrand.id == brandVM.nullBrand.id) {
+      return ListTile(
+        title: Text("Models"),
+      );
+    }
+
+    if (modelVM.modelList.isEmpty &&
+        brandVM.selectedBrand.id == brandVM.nullBrand.id) {
       return ListTile(
         title: Text("Models"),
       );
