@@ -15,7 +15,7 @@ class CarDataVM extends ChangeNotifier {
 
   List<CarData> listCarData = [];
 
-  loadCarDataFromService(
+  Future<List<CarData>> loadCarDataFromService(
     int year,
     Brand brand,
     Model model,
@@ -33,5 +33,6 @@ class CarDataVM extends ChangeNotifier {
 
     setAction(ACTION.Success);
     notifyListeners();
+    return result;
   }
 }
